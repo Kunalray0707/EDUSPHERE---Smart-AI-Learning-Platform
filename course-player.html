@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Player - EDUSPHERE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/course.css">
+    <style>
+        .course-player-layout {
+            display: flex;
+            min-height: 100vh;
+            padding-top: 0;
+        }
+        
+        .course-player-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .video-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .video-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-md);
+            color: var(--text-light);
+        }
+        
+        .video-placeholder svg {
+            width: 64px;
+            height: 64px;
+            opacity: 0.8;
+        }
+        
+        .lesson-content-area {
+            flex: 1;
+            padding: var(--spacing-xl);
+            overflow-y: auto;
+            background: var(--bg-secondary);
+        }
+        
+        .lesson-header {
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .lesson-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .lesson-meta {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-lg);
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+        
+        .lesson-body {
+            background: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            margin-bottom: var(--spacing-xl);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .lesson-text h3 {
+            font-size: 1.25rem;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .lesson-text p {
+            line-height: 1.8;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .lesson-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--spacing-lg);
+            background: var(--bg-primary);
+            border-top: 1px solid var(--border-light);
+        }
+        
+        .lesson-nav {
+            display: flex;
+            gap: var(--spacing-md);
+        }
+        
+        .nav-btn {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: var(--spacing-sm) var(--spacing-md);
+            background: var(--bg-tertiary);
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+        
+        .nav-btn:hover:not(:disabled) {
+            background: var(--primary-color);
+            color: var(--text-light);
+        }
+        
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .complete-btn {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: var(--spacing-md) var(--spacing-xl);
+            background: var(--secondary-color);
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 0.9375rem;
+            font-weight: 500;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+        
+        .complete-btn:hover {
+            background: var(--secondary-hover);
+            transform: translateY(-2px);
+        }
+        
+        .complete-btn.completed {
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+        }
+        
+        .lesson-sidebar {
+            width: 360px;
+            background: var(--bg-primary);
+            border-left: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            height: calc(100vh);
+            position: sticky;
+            top: 0;
+        }
+        
+        .sidebar-header {
+            padding: var(--spacing-lg);
+            border-bottom: 1px solid var(--border-light);
+        }
+        
+        .sidebar-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .sidebar-progress {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+        
+        .lesson-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: var(--spacing-md);
+        }
+        
+        .lesson-section {
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .lesson-section-title {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: var(--spacing-sm) var(--spacing-md);
+        }
+        
+        .lesson-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            padding: var(--spacing-md);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+        
+        .lesson-item:hover {
+            background: var(--bg-secondary);
+        }
+        
+        .lesson-item.active {
+            background: rgba(99, 102, 241, 0.1);
+        }
+        
+        .lesson-item.completed .lesson-status {
+            background: var(--secondary-color);
+            color: var(--text-light);
+        }
+        
+        .lesson-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-full);
+            flex-shrink: 0;
+            font-size: 0.875rem;
+        }
+        
+        .lesson-item.active .lesson-icon {
+            background: var(--primary-color);
+            color: var(--text-light);
+        }
+        
+        .lesson-item.completed .lesson-icon {
+            background: var(--secondary-color);
+            color: var(--text-light);
+        }
+        
+        .lesson-info {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .lesson-name {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .lesson-duration {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+        }
+        
+        .lesson-status {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-full);
+            flex-shrink: 0;
+            font-size: 0.75rem;
+        }
+        
+        .no-course-message {
+            text-align: center;
+            padding: var(--spacing-2xl);
+        }
+        
+        @media (max-width: 992px) {
+            .lesson-sidebar {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" style="position: relative;">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-brand">
+                <span style="font-size: 2rem;">🎓</span>
+                EDUSPHERE
+            </a>
+            
+            <div class="navbar-menu" id="navbar-menu">
+                <ul class="navbar-links">
+                    <li><a href="index.html" class="navbar-link">Home</a></li>
+                    <li><a href="courses.html" class="navbar-link">Courses</a></li>
+                    <li><a href="dashboard.html" class="navbar-link">Dashboard</a></li>
+                </ul>
+                
+                <div class="navbar-actions">
+                    <span id="course-title-display" style="font-weight: 600;">Course</span>
+                    <div class="user-xp-display" style="font-weight: 600; color: var(--primary-color);">0 XP</div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="course-player-layout">
+        <!-- Main Content -->
+        <div class="course-player-main">
+            <!-- Video Area -->
+            <div class="video-container">
+                <div class="video-placeholder">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                    <p>Click play to start watching</p>
+                </div>
+            </div>
+            
+            <!-- Lesson Content -->
+            <div class="lesson-content-area" id="lesson-content">
+                <div class="no-course-message">
+                    <h2>Select a lesson to start learning</h2>
+                    <p>Choose a lesson from the sidebar to begin</p>
+                </div>
+            </div>
+            
+            <!-- Actions -->
+            <div class="lesson-actions" id="lesson-actions" style="display: none;">
+                <div class="lesson-nav">
+                    <button class="nav-btn" id="prev-btn" onclick="previousLesson()">
+                        ← Previous
+                    </button>
+                    <button class="nav-btn" id="next-btn" onclick="nextLesson()">
+                        Next →
+                    </button>
+                </div>
+                <button class="complete-btn" id="complete-btn" onclick="markComplete()">
+                    ✓ Mark as Complete
+                </button>
+            </div>
+        </div>
+        
+        <!-- Sidebar -->
+        <aside class="lesson-sidebar">
+            <div class="sidebar-header">
+                <h3 class="sidebar-title" id="sidebar-title">Course Content</h3>
+                <div class="sidebar-progress" id="sidebar-progress">0% Complete</div>
+            </div>
+            <div class="lesson-list" id="lesson-list">
+                <!-- Rendered by JS -->
+            </div>
+        </aside>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        let currentCourse = null;
+        let currentLesson = null;
+        let currentModuleIndex = 0;
+        let currentLessonIndex = 0;
+        
+        // Get course ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const courseId = urlParams.get('course');
+        
+        if (courseId) {
+            currentCourse = getCourseById(courseId);
+        }
+        
+        if (!currentCourse) {
+            currentCourse = COURSES[0];
+        }
+        
+        // Initialize
+        function init() {
+            document.getElementById('course-title-display').textContent = currentCourse.title;
+            
+            // Load first lesson
+            if (currentCourse.modules && currentCourse.modules.length > 0) {
+                currentModuleIndex = 0;
+                currentLessonIndex = 0;
+                currentLesson = currentCourse.modules[0].lessons[0];
+                renderLessonList();
+                loadLesson();
+            }
+            
+            // Update XP display
+            AuthManager.checkAuth();
+            if (APP_STATE.currentUser) {
+                document.querySelector('.user-xp-display').textContent = `${(APP_STATE.currentUser.xp || 0).toLocaleString()} XP`;
+            }
+        }
+        
+        function renderLessonList() {
+            const list = document.getElementById('lesson-list');
+            let html = '';
+            
+            currentCourse.modules.forEach((module, moduleIdx) => {
+                html += `<div class="lesson-section">
+                    <div class="lesson-section-title">${module.title}</div>`;
+                
+                module.lessons.forEach((lesson, lessonIdx) => {
+                    const isActive = moduleIdx === currentModuleIndex && lessonIdx === currentLessonIndex;
+                    const isCompleted = isLessonCompleted(lesson.id);
+                    
+                    html += `
+                        <div class="lesson-item ${isActive ? 'active' : ''} ${isCompleted ? 'completed' : ''}" 
+                             onclick="selectLesson(${moduleIdx}, ${lessonIdx})">
+                            <div class="lesson-icon">
+                                ${isCompleted ? '✓' : (lesson.type === 'quiz' ? '?' : '▶')}
+                            </div>
+                            <div class="lesson-info">
+                                <div class="lesson-name">${lesson.title}</div>
+                                <div class="lesson-duration">${lesson.duration}</div>
+                            </div>
+                            <div class="lesson-status">
+                                ${isCompleted ? '✓' : ''}
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                html += '</div>';
+            });
+            
+            list.innerHTML = html;
+            updateProgress();
+        }
+        
+        function selectLesson(moduleIdx, lessonIdx) {
+            currentModuleIndex = moduleIdx;
+            currentLessonIndex = lessonIdx;
+            currentLesson = currentCourse.modules[moduleIdx].lessons[lessonIdx];
+            renderLessonList();
+            loadLesson();
+        }
+        
+        function loadLesson() {
+            const content = document.getElementById('lesson-content');
+            const actions = document.getElementById('lesson-actions');
+            
+            document.getElementById('sidebar-title').textContent = currentLesson.title;
+            
+            content.innerHTML = `
+                <div class="lesson-header">
+                    <h1 class="lesson-title">${currentLesson.title}</h1>
+                    <div class="lesson-meta">
+                        <span>📚 ${currentCourse.title}</span>
+                        <span>⏱️ ${currentLesson.duration}</span>
+                    </div>
+                </div>
+                <div class="lesson-body">
+                    <div class="lesson-text">
+                        <h3>About this lesson</h3>
+                        <p>In this lesson, you will learn the fundamentals of ${currentLesson.title.toLowerCase()}. 
+                        This is an important concept that will help you build a strong foundation in ${currentCourse.title}.</p>
+                        
+                        <h3>Key Topics</h3>
+                        <ul>
+                            <li>Understanding the core concepts</li>
+                            <li>Hands-on practice exercises</li>
+                            <li>Real-world applications</li>
+                            <li>Best practices and tips</li>
+                        </ul>
+                        
+                        <h3>Summary</h3>
+                        <p>By the end of this lesson, you will have a complete understanding of ${currentLesson.title} 
+                        and be able to apply these concepts in your projects.</p>
+                    </div>
+                </div>
+            `;
+            
+            actions.style.display = 'flex';
+            
+            // Update nav buttons
+            const isFirst = currentModuleIndex === 0 && currentLessonIndex === 0;
+            const isLast = currentModuleIndex === currentCourse.modules.length - 1 && 
+                          currentLessonIndex === currentCourse.modules[currentModuleIndex].lessons.length - 1;
+            
+            document.getElementById('prev-btn').disabled = isFirst;
+            document.getElementById('next-btn').disabled = isLast;
+            
+            // Update complete button
+            const completeBtn = document.getElementById('complete-btn');
+            const isCompleted = isLessonCompleted(currentLesson.id);
+            completeBtn.classList.toggle('completed', isCompleted);
+            completeBtn.textContent = isCompleted ? '✓ Completed' : '✓ Mark as Complete';
+        }
+        
+        function previousLesson() {
+            if (currentLessonIndex > 0) {
+                currentLessonIndex--;
+            } else if (currentModuleIndex > 0) {
+                currentModuleIndex--;
+                currentLessonIndex = currentCourse.modules[currentModuleIndex].lessons.length - 1;
+            }
+            currentLesson = currentCourse.modules[currentModuleIndex].lessons[currentLessonIndex];
+            renderLessonList();
+            loadLesson();
+        }
+        
+        function nextLesson() {
+            const currentModule = currentCourse.modules[currentModuleIndex];
+            if (currentLessonIndex < currentModule.lessons.length - 1) {
+                currentLessonIndex++;
+            } else if (currentModuleIndex < currentCourse.modules.length - 1) {
+                currentModuleIndex++;
+                currentLessonIndex = 0;
+            }
+            currentLesson = currentCourse.modules[currentModuleIndex].lessons[currentLessonIndex];
+            renderLessonList();
+            loadLesson();
+        }
+        
+        function markComplete() {
+            if (!APP_STATE.isLoggedIn) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            const progress = StorageManager.getProgress(currentCourse.id);
+            if (!progress.lessons.includes(currentLesson.id)) {
+                StorageManager.saveProgress(currentCourse.id, currentLesson.id, true);
+                
+                // Award XP
+                GamificationManager.addXP(10);
+                
+                UIComponents.showToast('Lesson Complete!', '+10 XP earned', 'success');
+            }
+            
+            renderLessonList();
+            loadLesson();
+            
+            // Update XP display
+            if (APP_STATE.currentUser) {
+                document.querySelector('.user-xp-display').textContent = `${(APP_STATE.currentUser.xp || 0).toLocaleString()} XP`;
+            }
+        }
+        
+        function isLessonCompleted(lessonId) {
+            const progress = StorageManager.getProgress(currentCourse.id);
+            return progress.lessons.includes(lessonId);
+        }
+        
+        function updateProgress() {
+            let totalLessons = 0;
+            let completedLessons = 0;
+            
+            currentCourse.modules.forEach(module => {
+                module.lessons.forEach(lesson => {
+                    totalLessons++;
+                    if (isLessonCompleted(lesson.id)) {
+                        completedLessons++;
+                    }
+                });
+            });
+            
+            const percent = totalLessons > 0 ? Math.round((completedLessons / totalLessons) * 100) : 0;
+            document.getElementById('sidebar-progress').textContent = `${percent}% Complete`;
+        }
+        
+        init();
+    </script>
+</body>
+</html>
+
