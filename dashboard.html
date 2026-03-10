@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - EDUSPHERE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <style>
+        .dashboard-content {
+            padding: var(--spacing-xl);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .welcome-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-xl);
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
+        }
+        
+        .welcome-text h1 {
+            font-size: 1.75rem;
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .welcome-text p {
+            color: var(--text-secondary);
+            margin: 0;
+        }
+        
+        .daily-goal-card {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: var(--text-light);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-lg);
+        }
+        
+        .goal-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.2);
+            border-radius: var(--radius-full);
+            font-size: 1.5rem;
+        }
+        
+        .goal-info h4 {
+            color: var(--text-light);
+            margin-bottom: 2px;
+        }
+        
+        .goal-info p {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.875rem;
+            margin: 0;
+        }
+        
+        .quick-actions {
+            display: flex;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-xl);
+            flex-wrap: wrap;
+        }
+        
+        .quick-action {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: var(--spacing-md) var(--spacing-lg);
+            background: var(--bg-primary);
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            box-shadow: var(--shadow-sm);
+            transition: all var(--transition-fast);
+        }
+        
+        .quick-action:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: var(--spacing-xl);
+        }
+        
+        @media (max-width: 992px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .dashboard-section {
+            background: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            margin-bottom: var(--spacing-xl);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .section-header h3 {
+            font-size: 1.125rem;
+        }
+        
+        .see-all {
+            font-size: 0.875rem;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .continue-course {
+            display: flex;
+            gap: var(--spacing-lg);
+            padding: var(--spacing-lg);
+            background: var(--bg-secondary);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--spacing-md);
+            transition: all var(--transition-fast);
+        }
+        
+        .continue-course:hover {
+            background: var(--bg-tertiary);
+        }
+        
+        .continue-image {
+            width: 120px;
+            height: 80px;
+            border-radius: var(--radius-md);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+        
+        .continue-info {
+            flex: 1;
+        }
+        
+        .continue-info h4 {
+            font-size: 1rem;
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .continue-info p {
+            font-size: 0.875rem;
+            color: var(--text-tertiary);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .leaderboard-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            padding: var(--spacing-md);
+            border-radius: var(--radius-md);
+            transition: background var(--transition-fast);
+        }
+        
+        .leaderboard-item:hover {
+            background: var(--bg-secondary);
+        }
+        
+        .leaderboard-rank {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.875rem;
+            border-radius: var(--radius-full);
+        }
+        
+        .leaderboard-rank.gold {
+            background: linear-gradient(135deg, #ffd700, #ffb700);
+            color: #000;
+        }
+        
+        .leaderboard-rank.silver {
+            background: linear-gradient(135deg, #c0c0c0, #a0a0a0);
+            color: #000;
+        }
+        
+        .leaderboard-rank.bronze {
+            background: linear-gradient(135deg, #cd7f32, #b87333);
+            color: #fff;
+        }
+        
+        .leaderboard-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            font-weight: 600;
+        }
+        
+        .leaderboard-info {
+            flex: 1;
+        }
+        
+        .leaderboard-info h4 {
+            font-size: 0.9375rem;
+            margin-bottom: 2px;
+        }
+        
+        .leaderboard-info p {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            margin: 0;
+        }
+        
+        .leaderboard-xp {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        .achievements-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: var(--spacing-md);
+        }
+        
+        .achievement-item {
+            text-align: center;
+            padding: var(--spacing-md);
+            background: var(--bg-secondary);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+        
+        .achievement-item:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .achievement-item.locked {
+            opacity: 0.5;
+            filter: grayscale(1);
+        }
+        
+        .achievement-icon {
+            font-size: 1.5rem;
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .achievement-name {
+            font-size: 0.6875rem;
+            font-weight: 500;
+        }
+        
+        .schedule-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+        }
+        
+        .schedule-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            padding: var(--spacing-md);
+            background: var(--bg-secondary);
+            border-radius: var(--radius-md);
+            border-left: 3px solid var(--primary-color);
+        }
+        
+        .schedule-time {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            min-width: 60px;
+        }
+        
+        .schedule-info {
+            flex: 1;
+        }
+        
+        .schedule-info h4 {
+            font-size: 0.875rem;
+            margin-bottom: 2px;
+        }
+        
+        .schedule-info p {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-brand">
+                <span style="font-size: 2rem;">🎓</span>
+                EDUSPHERE
+            </a>
+            
+            <div class="navbar-menu" id="navbar-menu">
+                <ul class="navbar-links">
+                    <li><a href="index.html" class="navbar-link">Home</a></li>
+                    <li><a href="courses.html" class="navbar-link">Courses</a></li>
+                    <li><a href="dashboard.html" class="navbar-link active">Dashboard</a></li>
+                    <li><a href="forum.html" class="navbar-link">Forum</a></li>
+                </ul>
+                
+                <div class="navbar-actions">
+                    <button class="theme-toggle" onclick="ThemeManager.toggle()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+                        </svg>
+                    </button>
+                    
+                    <div class="header-notifications">
+                        <button class="notification-btn" onclick="toggleNotifications()">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                            </svg>
+                            <span class="notification-badge">3</span>
+                        </button>
+                        <div class="notifications-panel" id="notifications-panel">
+                            <div class="notifications-header">
+                                <h4 class="notifications-title">Notifications</h4>
+                                <button class="mark-all-read">Mark all read</button>
+                            </div>
+                            <div class="notifications-list">
+                                <div class="notification-item unread">
+                                    <div class="notification-icon badge">🏆</div>
+                                    <div class="notification-content">
+                                        <p class="notification-text">You earned the "First Steps" badge!</p>
+                                        <span class="notification-time">2 hours ago</span>
+                                    </div>
+                                </div>
+                                <div class="notification-item unread">
+                                    <div class="notification-icon course">📚</div>
+                                    <div class="notification-content">
+                                        <p class="notification-text">New course added: Deep Learning with TensorFlow</p>
+                                        <span class="notification-time">5 hours ago</span>
+                                    </div>
+                                </div>
+                                <div class="notification-item">
+                                    <div class="notification-icon achievement">🎯</div>
+                                    <div class="notification-content">
+                                        <p class="notification-text">Your learning streak is 7 days!</p>
+                                        <span class="notification-time">1 day ago</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="user-menu" class="header-user">
+                        <div class="user-avatar" id="user-avatar">U</div>
+                        <span class="user-name" id="user-name">User</span>
+                        <span class="user-xp" id="user-xp">0 XP</span>
+                    </div>
+                    
+                    <a href="login.html" class="btn btn-primary" id="auth-btn" onclick="AuthManager.logout()">Logout</a>
+                </div>
+            </div>
+            
+            <button class="navbar-toggle" onclick="document.getElementById('navbar-menu').classList.toggle('active')">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="dashboard-sidebar">
+            <ul class="sidebar-nav">
+                <li class="sidebar-item">
+                    <a href="dashboard.html" class="sidebar-link active">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="14" width="7" height="7"></rect>
+                            <rect x="3" y="14" width="7" height="7"></rect>
+                        </svg>
+                        <span class="sidebar-text">Dashboard</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="courses.html" class="sidebar-link">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                        </svg>
+                        <span class="sidebar-text">My Courses</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="quiz.html" class="sidebar-link">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                        </svg>
+                        <span class="sidebar-text">Quizzes</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="planner.html" class="sidebar-link">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg>
+                        <span class="sidebar-text">Study Planner</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="leaderboard.html" class="sidebar-link">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M8.21 13.89L7 23l5-3 5 3-1.21-9.12"></path>
+                            <path d="M15 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0z"></path>
+                            <path d="M17 3l4 4"></path>
+                            <path d="M3 3l4 4"></path>
+                        </svg>
+                        <span class="sidebar-text">Leaderboard</span>
+                    </a>
+                </li>
+                <div class="sidebar-divider"></div>
+                <li class="sidebar-item">
+                    <a href="profile.html" class="sidebar-link">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                        <span class="sidebar-text">Profile</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                        </svg>
+                        <span class="sidebar-text">Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <div class="dashboard-content">
+                <!-- Welcome Section -->
+                <div class="welcome-section">
+                    <div class="welcome-text">
+                        <h1>Welcome back, <span id="welcome-name">Learner</span>! 👋</h1>
+                        <p>Continue your learning journey where you left off.</p>
+                    </div>
+                    <div class="daily-goal-card">
+                        <div class="goal-icon">🎯</div>
+                        <div class="goal-info">
+                            <h4>Daily Goal: 30 minutes</h4>
+                            <p>You've studied 15 minutes today</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions">
+                    <a href="courses.html" class="quick-action">📚 Browse Courses</a>
+                    <a href="quiz.html" class="quick-action">🏆 Take Quiz</a>
+                    <a href="planner.html" class="quick-action">📅 Study Plan</a>
+                    <a href="forum.html" class="quick-action">💬 Community</a>
+                </div>
+
+                <!-- Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon primary">📚</div>
+                        <div class="stat-content">
+                            <div class="stat-label">Enrolled Courses</div>
+                            <div class="stat-value" id="enrolled-count">0</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon success">✅</div>
+                        <div class="stat-content">
+                            <div class="stat-label">Completed</div>
+                            <div class="stat-value" id="completed-count">0</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon warning">🔥</div>
+                        <div class="stat-content">
+                            <div class="stat-label">Learning Streak</div>
+                            <div class="stat-value" id="streak-count">0 days</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon primary">⭐</div>
+                        <div class="stat-content">
+                            <div class="stat-label">Total XP</div>
+                            <div class="stat-value" id="total-xp">0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <!-- Left Column -->
+                    <div>
+                        <!-- Continue Learning -->
+                        <div class="dashboard-section">
+                            <div class="section-header">
+                                <h3>Continue Learning</h3>
+                                <a href="courses.html" class="see-all">See All</a>
+                            </div>
+                            <div id="continue-learning">
+                                <div class="continue-course">
+                                    <div class="continue-image">💻</div>
+                                    <div class="continue-info">
+                                        <h4>Python Programming Masterclass</h4>
+                                        <p>Lesson 12: Working with Databases</p>
+                                        <div class="progress-bar" style="height: 6px;">
+                                            <div class="progress-fill" style="width: 45%;"></div>
+                                        </div>
+                                        <span style="font-size: 0.75rem; color: var(--text-tertiary);">45% complete</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recent Achievements -->
+                        <div class="dashboard-section">
+                            <div class="section-header">
+                                <h3>Achievements</h3>
+                                <a href="profile.html" class="see-all">See All</a>
+                            </div>
+                            <div class="achievements-list" id="achievements-list">
+                                <!-- Rendered by JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div>
+                        <!-- Learning Streak -->
+                        <div class="dashboard-section">
+                            <div class="section-header">
+                                <h3>Learning Streak</h3>
+                            </div>
+                            <div class="activity-streak">
+                                <div class="streak-fire">🔥</div>
+                                <div class="streak-info">
+                                    <h3 id="streak-days">0 Days</h3>
+                                    <p>Keep it up!</p>
+                                    <div class="streak-days" id="streak-calendar">
+                                        <div class="streak-day">M</div>
+                                        <div class="streak-day">T</div>
+                                        <div class="streak-day">W</div>
+                                        <div class="streak-day">T</div>
+                                        <div class="streak-day">F</div>
+                                        <div class="streak-day">S</div>
+                                        <div class="streak-day">S</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Today's Schedule -->
+                        <div class="dashboard-section">
+                            <div class="section-header">
+                                <h3>Today's Schedule</h3>
+                            </div>
+                            <div class="schedule-list">
+                                <div class="schedule-item">
+                                    <div class="schedule-time">9:00 AM</div>
+                                    <div class="schedule-info">
+                                        <h4>Python Basics</h4>
+                                        <p>Chapter 3, Lesson 2</p>
+                                    </div>
+                                </div>
+                                <div class="schedule-item">
+                                    <div class="schedule-time">2:00 PM</div>
+                                    <div class="schedule-info">
+                                        <h4>Data Science Quiz</h4>
+                                        <p>10 questions</p>
+                                    </div>
+                                </div>
+                                <div class="schedule-item">
+                                    <div class="schedule-time">6:00 PM</div>
+                                    <div class="schedule-info">
+                                        <h4>ML Fundamentals</h4>
+                                        <p>Video lecture</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Top Learners -->
+                        <div class="dashboard-section">
+                            <div class="section-header">
+                                <h3>Top Learners</h3>
+                                <a href="leaderboard.html" class="see-all">See All</a>
+                            </div>
+                            <div id="leaderboard-list">
+                                <div class="leaderboard-item">
+                                    <div class="leaderboard-rank gold">1</div>
+                                    <div class="leaderboard-avatar">AK</div>
+                                    <div class="leaderboard-info">
+                                        <h4>Alex Kim</h4>
+                                        <p>12,450 XP</p>
+                                    </div>
+                                </div>
+                                <div class="leaderboard-item">
+                                    <div class="leaderboard-rank silver">2</div>
+                                    <div class="leaderboard-avatar">SM</div>
+                                    <div class="leaderboard-info">
+                                        <h4>Sarah Martinez</h4>
+                                        <p>10,230 XP</p>
+                                    </div>
+                                </div>
+                                <div class="leaderboard-item">
+                                    <div class="leaderboard-rank bronze">3</div>
+                                    <div class="leaderboard-avatar">JC</div>
+                                    <div class="leaderboard-info">
+                                        <h4>James Chen</h4>
+                                        <p>9,870 XP</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- AI Chatbot -->
+    <div class="ai-chatbot">
+        <div class="chatbot-window">
+            <div class="chatbot-header">
+                <div class="chatbot-avatar">🤖</div>
+                <div class="chatbot-info">
+                    <h4>AI Assistant</h4>
+                    <span>Online</span>
+                </div>
+            </div>
+            <div class="chatbot-messages">
+                <div class="chatbot-message bot">Hello! Need help with your studies?</div>
+            </div>
+            <div class="chatbot-input-area">
+                <input type="text" class="chatbot-input" placeholder="Ask me anything...">
+                <button class="chatbot-send">➤</button>
+            </div>
+        </div>
+        <button class="chatbot-toggle">💬</button>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // Check authentication
+        AuthManager.checkAuth();
+        
+        if (!APP_STATE.isLoggedIn) {
+            window.location.href = 'login.html';
+        }
+
+        // Update UI with user data
+        const user = APP_STATE.currentUser;
+        if (user) {
+            document.getElementById('welcome-name').textContent = user.name;
+            document.getElementById('user-name').textContent = user.name;
+            document.getElementById('user-avatar').textContent = user.name.charAt(0).toUpperCase();
+            document.getElementById('user-xp').textContent = `${(user.xp || 0).toLocaleString()} XP`;
+            document.getElementById('total-xp').textContent = (user.xp || 0).toLocaleString();
+            document.getElementById('streak-count').textContent = `${user.streak || 0} days`;
+            document.getElementById('streak-days').textContent = `${user.streak || 0} Days`;
+            document.getElementById('enrolled-count').textContent = (user.enrolledCourses || []).length;
+        }
+
+        // Render achievements
+        const achievementsList = document.getElementById('achievements-list');
+        if (achievementsList) {
+            achievementsList.innerHTML = ACHIEVEMENTS.slice(0, 6).map(achievement => {
+                const unlocked = user?.achievements?.includes(achievement.id);
+                return `
+                    <div class="achievement-item ${unlocked ? '' : 'locked'}">
+                        <div class="achievement-icon">${achievement.icon}</div>
+                        <div class="achievement-name">${achievement.name}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Update streak calendar
+        const streakCalendar = document.getElementById('streak-calendar');
+        if (streakCalendar && user) {
+            const days = streakCalendar.querySelectorAll('.streak-day');
+            const currentStreak = user.streak || 0;
+            // Show last 7 days - some active based on streak
+            for (let i = 0; i < 7; i++) {
+                if (i < currentStreak && i < 7) {
+                    days[i].classList.add('active');
+                }
+            }
+        }
+
+        // Toggle notifications
+        function toggleNotifications() {
+            const panel = document.getElementById('notifications-panel');
+            panel.classList.toggle('active');
+        }
+
+        // Close notifications when clicking outside
+        document.addEventListener('click', (e) => {
+            const panel = document.getElementById('notifications-panel');
+            const btn = document.querySelector('.notification-btn');
+            if (!panel.contains(e.target) && !btn.contains(e.target)) {
+                panel.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
+
