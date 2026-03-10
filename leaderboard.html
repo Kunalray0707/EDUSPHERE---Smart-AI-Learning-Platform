@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard - EDUSPHERE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <style>
+        .leaderboard-page { padding: calc(70px + var(--spacing-xl)) 0 var(--spacing-xl); }
+        .leaderboard-header { text-align: center; margin-bottom: var(--spacing-xl); }
+        .leaderboard-header h1 { font-size: 2rem; margin-bottom: var(--spacing-sm); }
+        .leaderboard-header p { color: var(--text-secondary); margin: 0; }
+        .podium { display: flex; justify-content: center; align-items: flex-end; gap: var(--spacing-lg); margin-bottom: var(--spacing-xl); }
+        .podium-item { text-align: center; padding: var(--spacing-xl); background: var(--bg-primary); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); width: 200px; }
+        .podium-item.first { padding: var(--spacing-2xl); background: linear-gradient(135deg, #ffd700, #ffb700); color: #000; transform: scale(1.1); }
+        .podium-item.second { background: linear-gradient(135deg, #c0c0c0, #a0a0a0); color: #000; }
+        .podium-item.third { background: linear-gradient(135deg, #cd7f32, #b87333); color: #fff; }
+        .podium-rank { font-size: 2.5rem; font-weight: 700; margin-bottom: var(--spacing-sm); }
+        .podium-avatar { width: 80px; height: 80px; border-radius: var(--radius-full); background: var(--bg-primary); display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto var(--spacing-md); }
+        .podium-name { font-weight: 600; margin-bottom: var(--spacing-xs); }
+        .podium-xp { font-size: 1.25rem; font-weight: 700; }
+        .leaderboard-table { background: var(--bg-primary); border-radius: var(--radius-lg); padding: var(--spacing-xl); box-shadow: var(--shadow-sm); }
+        .leaderboard-row { display: flex; align-items: center; gap: var(--spacing-lg); padding: var(--spacing-md); border-radius: var(--radius-md); transition: background var(--transition-fast); }
+        .leaderboard-row:hover { background: var(--bg-secondary); }
+        .leaderboard-row .rank { width: 40px; font-weight: 700; text-align: center; }
+        .leaderboard-row .avatar { width: 48px; height: 48px; border-radius: var(--radius-full); background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); display: flex; align-items: center; justify-content: center; color: var(--text-light); font-weight: 600; }
+        .leaderboard-row .name { flex: 1; font-weight: 500; }
+        .leaderboard-row .xp { font-weight: 600; color: var(--primary-color); }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-brand"><span style="font-size:2rem;">🎓</span>EDUSPHERE</a>
+            <div class="navbar-menu">
+                <ul class="navbar-links">
+                    <li><a href="index.html" class="navbar-link">Home</a></li>
+                    <li><a href="courses.html" class="navbar-link">Courses</a></li>
+                    <li><a href="dashboard.html" class="navbar-link">Dashboard</a></li>
+                    <li><a href="leaderboard.html" class="navbar-link active">Leaderboard</a></li>
+                </ul>
+                <div class="navbar-actions">
+                    <span class="user-xp" style="font-weight:600;color:var(--primary-color);">0 XP</span>
+                    <a href="login.html" class="btn btn-primary">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container leaderboard-page">
+        <div class="leaderboard-header">
+            <h1>🏆 Leaderboard</h1>
+            <p>Top learners this month</p>
+        </div>
+
+        <div class="podium">
+            <div class="podium-item second">
+                <div class="podium-rank">2</div>
+                <div class="podium-avatar">SM</div>
+                <div class="podium-name">Sarah Martinez</div>
+                <div class="podium-xp">10,230 XP</div>
+            </div>
+            <div class="podium-item first">
+                <div class="podium-rank">1</div>
+                <div class="podium-avatar">AK</div>
+                <div class="podium-name">Alex Kim</div>
+                <div class="podium-xp">12,450 XP</div>
+            </div>
+            <div class="podium-item third">
+                <div class="podium-rank">3</div>
+                <div class="podium-avatar">JC</div>
+                <div class="podium-name">James Chen</div>
+                <div class="podium-xp">9,870 XP</div>
+            </div>
+        </div>
+
+        <div class="leaderboard-table">
+            <div class="leaderboard-row" style="font-weight:600;color:var(--text-tertiary);border-bottom:1px solid var(--border-light);">
+                <span class="rank">#</span>
+                <span class="avatar"></span>
+                <span class="name">Learner</span>
+                <span class="xp">XP Points</span>
+            </div>
+            <div class="leaderboard-row"><span class="rank">4</span><div class="avatar">EP</div><span class="name">Emily Parker</span><span class="xp">8,920 XP</span></div>
+            <div class="leaderboard-row"><span class="rank">5</span><div class="avatar">MR</div><span class="name">Mike Roberts</span><span class="xp">7,650 XP</span></div>
+            <div class="leaderboard-row"><span class="rank">6</span><div class="avatar">LW</div><span class="name">Lisa Wang</span><span class="xp">7,210 XP</span></div>
+            <div class="leaderboard-row"><span class="rank">7</span><div class="avatar">JT</div><span class="name">John Taylor</span><span class="xp">6,890 XP</span></div>
+            <div class="leaderboard-row"><span class="rank">8</span><div class="avatar">AH</div><span class="name">Anna Hughes</span><span class="xp">6,450 XP</span></div>
+            <div class="leaderboard-row"><span class="rank">9</span><div class="avatar">DM</div><span class="name">David Miller</span><span class="xp">6,120 XP</span></div>
+            <div class="leaderboard-row"><span class="rank">10</span><div class="avatar">SB</div><span class="name">Sophie Brown</span><span class="xp">5,980 XP</span></div>
+        </div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        AuthManager.checkAuth();
+        if (APP_STATE.currentUser) {
+            document.querySelector('.user-xp').textContent = `${(APP_STATE.currentUser.xp||0).toLocaleString()} XP`;
+        }
+    </script>
+</body>
+</html>
+
