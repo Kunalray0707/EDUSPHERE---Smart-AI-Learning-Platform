@@ -37,6 +37,17 @@
         .course-info { flex: 1; }
         .course-info h4 { font-size: 0.9375rem; margin-bottom: var(--spacing-xs); }
         .course-info p { font-size: 0.8125rem; color: var(--text-tertiary); margin: 0; }
+        
+        /* Certificates Section */
+        .certificates-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--spacing-lg); }
+        .certificate-card { background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%); border: 2px solid #ffd700; border-radius: var(--radius-lg); padding: var(--spacing-xl); text-align: center; position: relative; overflow: hidden; }
+        .certificate-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #ffd700, #ffb700, #ffd700); }
+        .certificate-card .cert-icon { font-size: 3rem; margin-bottom: var(--spacing-md); }
+        .certificate-card h4 { font-size: 1rem; margin-bottom: var(--spacing-xs); color: #333; }
+        .certificate-card p { font-size: 0.8125rem; color: #666; margin-bottom: var(--spacing-md); }
+        .certificate-card .cert-date { font-size: 0.75rem; color: #999; }
+        .certificate-actions { display: flex; gap: var(--spacing-sm); justify-content: center; margin-top: var(--spacing-md); }
+        .no-certificates { text-align: center; padding: var(--spacing-xl); color: var(--text-tertiary); }
     </style>
 </head>
 <body>
@@ -91,6 +102,15 @@
                         <p style="color:var(--text-tertiary);">No courses enrolled yet. <a href="courses.html">Browse courses</a></p>
                     </div>
                 </div>
+
+                <!-- Certificates Section -->
+                <div class="profile-section">
+                    <h3>🎓 My Certificates</h3>
+                    <div class="certificates-grid" id="certificates-list">
+                        <p class="no-certificates">Complete courses to earn certificates!</p>
+                    </div>
+                </div>
+
                 <div class="profile-section">
                     <h3>Achievements</h3>
                     <div class="achievement-grid" id="achievements"></div>
@@ -134,6 +154,56 @@
                 const unlocked = user.achievements?.includes(a.id);
                 return `<div class="achievement-card ${unlocked ? '' : 'locked'}"><div class="achievement-icon">${a.icon}</div><div class="achievement-name">${a.name}</div></div>`;
             }).join('');
+            
+            renderCertificates();
+        }
+        
+        function renderCertificates() {
+            const certList = document.getElementById('certificates-list');
+            const certificates = JSON.parse(localStorage.getItem('edusphere_certificates') || '[]');
+            
+            if (certificates.length === 0) {
+                certList.innerHTML = '<p class="no-certificates">Complete courses to earn certificates!</p>';
+                return;
+            }
+            
+            certList.innerHTML = certificates.map(cert => `
+                <div class="certificate-card">
+                    <div class="cert-icon">🎓</div>
+                    <h4>${cert.courseName}</h4>
+                    <p>Completed on ${new Date(cert.completedAt).toLocaleDateString()}</p>
+                    <span class="cert-date">Certificate ID: ${cert.id}</span>
+                    <div class="certificate-actions">
+                        <button class="btn btn-sm btn-primary" onclick="viewCertificate('${cert.id}')">View</button>
+                        <button class="btn btn-sm btn-outline" onclick="downloadCertificate('${cert.id}')">Download</button>
+                    </div>
+                </div>
+            `).join('');
+            
+            document.getElementById('cert-count').textContent = certificates.length;
+        }
+        
+        function viewCertificate(certId) {
+            const certificates = JSON.parse(localStorage.getItem('edusphere_certificates') || '[]');
+            const cert = certificates.find(c => c.id === certId);
+            if (cert) {
+                alert(`Certificate of Completion\n\nStudent: ${cert.userName}\nCourse: ${cert.courseName}\nCompleted: ${new Date(cert.completedAt).toLocaleDateString()}`);
+            }
+        }
+        
+        function downloadCertificate(certId) {
+            const certificates = JSON.parse(localStorage.getItem('edusphere_certificates') || '[]');
+            const cert = certificates.find(c => c.id === certId);
+            if (cert) {
+                const content = `CERTIFICATE OF COMPLETION\n\nThis is to certify that\n${cert.userName}\nhas successfully completed the course\n${cert.courseName}\n\nDate: ${new Date(cert.completedAt).toLocaleDateString()}\nCertificate ID: ${cert.id}\n\n- EDUSPHERE`;
+                const blob = new Blob([content], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `certificate-${cert.courseName.replace(/\s+/g, '-')}.txt`;
+                a.click();
+                URL.revokeObjectURL(url);
+            }
         }
     </script>
 </body>
