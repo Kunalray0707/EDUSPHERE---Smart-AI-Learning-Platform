@@ -31,27 +31,27 @@ const COURSES = [
             {
                 title: 'Getting Started with Python',
                 lessons: [
-                    { id: 'l1-1', title: 'Introduction to Python', duration: '15 min', type: 'video' },
-                    { id: 'l1-2', title: 'Setting Up Your Environment', duration: '20 min', type: 'video' },
-                    { id: 'l1-3', title: 'Your First Python Program', duration: '25 min', type: 'video' },
+                    { id: 'l1-1', title: 'Introduction to Python', duration: '15 min', type: 'video', videoId: 'kqtD5dpn9C8' },
+                    { id: 'l1-2', title: 'Setting Up Your Environment', duration: '20 min', type: 'video', videoId: 'RNjQ1TW66MM' },
+                    { id: 'l1-3', title: 'Your First Python Program', duration: '25 min', type: 'video', videoId: 'pQM9rFmy1yo' },
                     { id: 'l1-4', title: 'Module 1 Quiz', duration: '10 min', type: 'quiz' }
                 ]
             },
             {
                 title: 'Python Fundamentals',
                 lessons: [
-                    { id: 'l2-1', title: 'Variables and Data Types', duration: '30 min', type: 'video' },
-                    { id: 'l2-2', title: 'Operators and Expressions', duration: '25 min', type: 'video' },
-                    { id: 'l2-3', title: 'Control Flow Statements', duration: '35 min', type: 'video' },
-                    { id: 'l2-4', title: 'Working with Strings', duration: '30 min', type: 'video' }
+                    { id: 'l2-1', title: 'Variables and Data Types', duration: '30 min', type: 'video', videoId: 'cQT33yu9pY8' },
+                    { id: 'l2-2', title: 'Operators and Expressions', duration: '25 min', type: 'video', videoId: 'VP9zb2ZNcOU' },
+                    { id: 'l2-3', title: 'Control Flow Statements', duration: '35 min', type: 'video', videoId: 'Zp7G2jGGNQ4' },
+                    { id: 'l2-4', title: 'Working with Strings', duration: '30 min', type: 'video', videoId: 'iy5L4WuTyNQ' }
                 ]
             },
             {
                 title: 'Data Structures',
                 lessons: [
-                    { id: 'l3-1', title: 'Lists and List Operations', duration: '40 min', type: 'video' },
-                    { id: 'l3-2', title: 'Tuples and Sets', duration: '35 min', type: 'video' },
-                    { id: 'l3-3', title: 'Dictionaries', duration: '30 min', type: 'video' },
+                    { id: 'l3-1', title: 'Lists and List Operations', duration: '40 min', type: 'video', videoId: 'N6mC8C8cE3M' },
+                    { id: 'l3-2', title: 'Tuples and Sets', duration: '35 min', type: 'video', videoId: 'HTr2GqYy6fE' },
+                    { id: 'l3-3', title: 'Dictionaries', duration: '30 min', type: 'video', videoId: 'W8KRH-HnkV4' },
                     { id: 'l3-4', title: 'Module 3 Quiz', duration: '15 min', type: 'quiz' }
                 ]
             }
@@ -78,17 +78,17 @@ const COURSES = [
             {
                 title: 'Introduction to Machine Learning',
                 lessons: [
-                    { id: 'ml1-1', title: 'What is Machine Learning?', duration: '20 min', type: 'video' },
-                    { id: 'ml1-2', title: 'Types of Machine Learning', duration: '25 min', type: 'video' },
-                    { id: 'ml1-3', title: 'Setting Up ML Environment', duration: '30 min', type: 'video' }
+                    { id: 'ml1-1', title: 'What is Machine Learning?', duration: '20 min', type: 'video', videoId: 'i_LwzRJV7gg' },
+                    { id: 'ml1-2', title: 'Types of Machine Learning', duration: '25 min', type: 'video', videoId: 'h0Z2rl5yP0A' },
+                    { id: 'ml1-3', title: 'Setting Up ML Environment', duration: '30 min', type: 'video', videoId: '-PlbUl8F3IQ' }
                 ]
             },
             {
                 title: 'Supervised Learning',
                 lessons: [
-                    { id: 'ml2-1', title: 'Linear Regression', duration: '45 min', type: 'video' },
-                    { id: 'ml2-2', title: 'Logistic Regression', duration: '40 min', type: 'video' },
-                    { id: 'ml2-3', title: 'Decision Trees', duration: '35 min', type: 'video' }
+                    { id: 'ml2-1', title: 'Linear Regression', duration: '45 min', type: 'video', videoId: 'z020hdg6_oA' },
+                    { id: 'ml2-2', title: 'Logistic Regression', duration: '40 min', type: 'video', videoId: 'yIYKR4zOAaQ' },
+                    { id: 'ml2-3', title: 'Decision Trees', duration: '35 min', type: 'video', videoId: 'S4t13fZXW3w' }
                 ]
             }
         ]
@@ -114,9 +114,9 @@ const COURSES = [
             {
                 title: 'HTML & CSS Fundamentals',
                 lessons: [
-                    { id: 'web1-1', title: 'Introduction to HTML', duration: '25 min', type: 'video' },
-                    { id: 'web1-2', title: 'HTML Elements & Attributes', duration: '30 min', type: 'video' },
-                    { id: 'web1-3', title: 'CSS Basics', duration: '35 min', type: 'video' }
+                    { id: 'web1-1', title: 'Introduction to HTML', duration: '25 min', type: 'video', videoId: 'UB1O30fR-EE' },
+                    { id: 'web1-2', title: 'HTML Elements & Attributes', duration: '30 min', type: 'video', videoId: 'iXQP5b6Pb9A' },
+                    { id: 'web1-3', title: 'CSS Basics', duration: '35 min', type: 'video', videoId: 'yfoY53QXEnI' }
                 ]
             }
         ]
@@ -142,9 +142,9 @@ const COURSES = [
             {
                 title: 'Python for Data Science',
                 lessons: [
-                    { id: 'ds1-1', title: 'Python Fundamentals Review', duration: '30 min', type: 'video' },
-                    { id: 'ds1-2', title: 'NumPy Array Operations', duration: '40 min', type: 'video' },
-                    { id: 'ds1-3', title: 'Pandas DataFrames', duration: '45 min', type: 'video' }
+                    { id: 'ds1-1', title: 'Python Fundamentals Review', duration: '30 min', type: 'video', videoId: 'rfscVS0vtbw' },
+                    { id: 'ds1-2', title: 'NumPy Array Operations', duration: '40 min', type: 'video', videoId: 'QUT1VHiLmmI' },
+                    { id: 'ds1-3', title: 'Pandas DataFrames', duration: '45 min', type: 'video', videoId: 'vF0cCTu01O4' }
                 ]
             }
         ]
@@ -170,9 +170,9 @@ const COURSES = [
             {
                 title: 'Introduction to Cybersecurity',
                 lessons: [
-                    { id: 'sec1-1', title: 'Security Fundamentals', duration: '25 min', type: 'video' },
-                    { id: 'sec1-2', title: 'Common Threats & Attacks', duration: '30 min', type: 'video' },
-                    { id: 'sec1-3', title: 'Security Frameworks', duration: '35 min', type: 'video' }
+                    { id: 'sec1-1', title: 'Security Fundamentals', duration: '25 min', type: 'video', videoId: 'yr0eD22-QF0' },
+                    { id: 'sec1-2', title: 'Common Threats & Attacks', duration: '30 min', type: 'video', videoId: 'inKp5D17rZ4' },
+                    { id: 'sec1-3', title: 'Security Frameworks', duration: '35 min', type: 'video', videoId: '6w1K3KxY4FQ' }
                 ]
             }
         ]
@@ -198,9 +198,9 @@ const COURSES = [
             {
                 title: 'Design Fundamentals',
                 lessons: [
-                    { id: 'ui1-1', title: 'Introduction to UI/UX', duration: '20 min', type: 'video' },
-                    { id: 'ui1-2', title: 'Color Theory', duration: '25 min', type: 'video' },
-                    { id: 'ui1-3', title: 'Typography Basics', duration: '30 min', type: 'video' }
+                    { id: 'ui1-1', title: 'Introduction to UI/UX', duration: '20 min', type: 'video', videoId: 'c9Wg6Cb_YlU' },
+                    { id: 'ui1-2', title: 'Color Theory', duration: '25 min', type: 'video', videoId: '3kfdK4BQ6_Q' },
+                    { id: 'ui1-3', title: 'Typography Basics', duration: '30 min', type: 'video', videoId: 'l1mnD4lE5Vk' }
                 ]
             }
         ]
@@ -226,9 +226,9 @@ const COURSES = [
             {
                 title: 'Modern JavaScript',
                 lessons: [
-                    { id: 'js1-1', title: 'ES6+ Features', duration: '35 min', type: 'video' },
-                    { id: 'js1-2', title: 'Closures & Scope', duration: '40 min', type: 'video' },
-                    { id: 'js1-3', title: 'Promises & Async/Await', duration: '45 min', type: 'video' }
+                    { id: 'js1-1', title: 'ES6+ Features', duration: '35 min', type: 'video', videoId: 'N8ap2CxyKDs' },
+                    { id: 'js1-2', title: 'Closures & Scope', duration: '40 min', type: 'video', videoId: '-xR5u1d3Q7A' },
+                    { id: 'js1-3', title: 'Promises & Async/Await', duration: '45 min', type: 'video', videoId: 'VNf45Vrw0aM' }
                 ]
             }
         ]
@@ -254,9 +254,9 @@ const COURSES = [
             {
                 title: 'Neural Networks Basics',
                 lessons: [
-                    { id: 'dl1-1', title: 'Introduction to Neural Networks', duration: '30 min', type: 'video' },
-                    { id: 'dl1-2', title: 'TensorFlow Fundamentals', duration: '40 min', type: 'video' },
-                    { id: 'dl1-3', title: 'Building Your First NN', duration: '45 min', type: 'video' }
+                    { id: 'dl1-1', title: 'Introduction to Neural Networks', duration: '30 min', type: 'video', videoId: 'aircAruvnKk' },
+                    { id: 'dl1-2', title: 'TensorFlow Fundamentals', duration: '40 min', type: 'video', videoId: 'WiQ3ZZbNuaO' },
+                    { id: 'dl1-3', title: 'Building Your First NN', duration: '45 min', type: 'video', videoId: 'oV74J2rMfVM' }
                 ]
             }
         ]
