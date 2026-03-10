@@ -691,6 +691,45 @@ const QuizManager = {
 };
 
 // ========================================
+// CERTIFICATE MANAGEMENT
+// ========================================
+const CertificateManager = {
+    generateCertificate(courseId, courseName, userName) {
+        const certificates = JSON.parse(localStorage.getItem('edusphere_certificates') || '[]');
+        const existingCert = certificates.find(c => c.courseId === courseId);
+        
+        if (!existingCert) {
+            const newCert = {
+                id: 'CERT-' + Date.now(),
+                courseId: courseId,
+                courseName: courseName,
+                userName: userName,
+                completedAt: new Date().toISOString()
+            };
+            
+            certificates.push(newCert);
+            localStorage.setItem('edusphere_certificates', JSON.stringify(certificates));
+            return newCert;
+        }
+        return existingCert;
+    },
+    
+    getCertificates() {
+        return JSON.parse(localStorage.getItem('edusphere_certificates') || '[]');
+    },
+    
+    getCertificateById(certId) {
+        const certificates = this.getCertificates();
+        return certificates.find(c => c.id === certId);
+    },
+    
+    getCertificateByCourse(courseId) {
+        const certificates = this.getCertificates();
+        return certificates.find(c => c.courseId === courseId);
+    }
+};
+
+// ========================================
 // INITIALIZATION
 // ========================================
 function initializeApp() {
