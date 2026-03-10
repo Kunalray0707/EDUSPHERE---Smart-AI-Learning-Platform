@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EDUSPHERE - Smart AI Learning Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Additional Landing Page Styles */
+        .hero-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-2xl);
+            align-items: center;
+        }
+        
+        @media (max-width: 992px) {
+            .hero-split {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-xl);
+            margin-top: var(--spacing-2xl);
+        }
+        
+        @media (max-width: 768px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .feature-card {
+            text-align: center;
+            padding: var(--spacing-xl);
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto var(--spacing-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            border-radius: var(--radius-xl);
+            font-size: 2rem;
+        }
+        
+        .stats-banner {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            padding: var(--spacing-2xl) 0;
+            color: var(--text-light);
+        }
+        
+        .stats-banner .section-title,
+        .stats-banner .section-subtitle {
+            color: var(--text-light);
+        }
+        
+        .stats-banner .section-subtitle {
+            opacity: 0.9;
+        }
+        
+        .stats-row {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-3xl);
+            margin-top: var(--spacing-xl);
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 3rem;
+            font-weight: 700;
+        }
+        
+        .stat-label {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+        
+        .cta-section {
+            text-align: center;
+            padding: var(--spacing-2xl) 0;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-xl);
+            flex-wrap: wrap;
+        }
+        
+        .page-content {
+            padding-top: 70px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-brand">
+                <span style="font-size: 2rem;">🎓</span>
+                EDUSPHERE
+            </a>
+            
+            <div class="navbar-menu" id="navbar-menu">
+                <ul class="navbar-links">
+                    <li><a href="index.html" class="navbar-link active">Home</a></li>
+                    <li><a href="courses.html" class="navbar-link">Courses</a></li>
+                    <li><a href="dashboard.html" class="navbar-link">Dashboard</a></li>
+                    <li><a href="forum.html" class="navbar-link">Forum</a></li>
+                </ul>
+                
+                <div class="navbar-actions">
+                    <div class="search-bar" style="padding: 0.5rem 1rem;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                        <input type="text" class="search-input" placeholder="Search courses...">
+                    </div>
+                    
+                    <button class="theme-toggle" onclick="ThemeManager.toggle()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+                        </svg>
+                    </button>
+                    
+                    <div id="auth-buttons">
+                        <a href="login.html" class="btn btn-ghost">Login</a>
+                        <a href="login.html" class="btn btn-primary">Sign Up</a>
+                    </div>
+                    
+                    <div id="user-menu" class="hidden header-user">
+                        <div class="user-avatar">U</div>
+                        <span class="user-name">User</span>
+                        <span class="user-xp">0 XP</span>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="navbar-toggle" onclick="document.getElementById('navbar-menu').classList.toggle('active')">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="page-content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-split">
+                    <div class="hero-content">
+                        <div class="hero-badge">
+                            <span>🚀</span>
+                            #1 AI-Powered Learning Platform
+                        </div>
+                        <h1 class="hero-title">
+                            Learn Without Limits with <span>AI-Powered</span> Education
+                        </h1>
+                        <p class="hero-description">
+                            Master in-demand skills with personalized learning paths, interactive quizzes, 
+                            and an AI assistant that guides your journey. Join thousands of learners transforming their careers.
+                        </p>
+                        <div class="hero-actions">
+                            <a href="courses.html" class="btn btn-primary btn-lg">Explore Courses</a>
+                            <a href="login.html" class="btn btn-outline btn-lg">Get Started Free</a>
+                        </div>
+                        <div class="hero-stats">
+                            <div class="hero-stat">
+                                <div class="hero-stat-number">50K+</div>
+                                <div class="hero-stat-label">Students</div>
+                            </div>
+                            <div class="hero-stat">
+                                <div class="hero-stat-number">200+</div>
+                                <div class="hero-stat-label">Courses</div>
+                            </div>
+                            <div class="hero-stat">
+                                <div class="hero-stat-number">4.9</div>
+                                <div class="hero-stat-label">Rating</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hero-image">
+                        <div style="width:100%;height:400px;background:linear-gradient(135deg, #6366f1, #10b981);border-radius:1rem;display:flex;align-items:center;justify-content:center;font-size:6rem;">
+                            🎓
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories Section -->
+        <section class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Browse by Category</h2>
+                    <p class="section-subtitle">Explore our wide range of courses across different domains</p>
+                </div>
+                <div class="categories-grid" id="categories-grid">
+                    <!-- Categories will be rendered by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Courses -->
+        <section class="section" style="background: var(--bg-primary);">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Featured Courses</h2>
+                    <p class="section-subtitle">Handpicked courses to kickstart your learning journey</p>
+                </div>
+                <div class="courses-grid" id="featured-courses">
+                    <!-- Courses will be rendered by JS -->
+                </div>
+                <div class="text-center mt-xl">
+                    <a href="courses.html" class="btn btn-outline">View All Courses</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Why Choose EDUSPHERE?</h2>
+                    <p class="section-subtitle">Experience the future of learning with our innovative features</p>
+                </div>
+                <div class="features-grid">
+                    <div class="card feature-card">
+                        <div class="feature-icon">🤖</div>
+                        <h3>AI Learning Assistant</h3>
+                        <p>Get instant help from our AI bot that's available 24/7 to answer your questions</p>
+                    </div>
+                    <div class="card feature-card">
+                        <div class="feature-icon">🏆</div>
+                        <h3>Gamification</h3>
+                        <p>Earn XP, unlock achievements, and climb the leaderboard as you learn</p>
+                    </div>
+                    <div class="card feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3>Progress Tracking</h3>
+                        <p>Monitor your learning journey with detailed analytics and insights</p>
+                    </div>
+                    <div class="card feature-card">
+                        <div class="feature-icon">📝</div>
+                        <h3>Interactive Quizzes</h3>
+                        <p>Test your knowledge with timed quizzes and get instant feedback</p>
+                    </div>
+                    <div class="card feature-card">
+                        <div class="feature-icon">🎓</div>
+                        <h3>Certificates</h3>
+                        <p>Earn certificates upon course completion to showcase your skills</p>
+                    </div>
+                    <div class="card feature-card">
+                        <div class="feature-icon">💬</div>
+                        <h3>Community Forum</h3>
+                        <p>Connect with fellow learners and get help from the community</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Banner -->
+        <section class="stats-banner">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Join Our Growing Community</h2>
+                    <p class="section-subtitle">Be part of the largest online learning platform</p>
+                </div>
+                <div class="stats-row">
+                    <div class="stat-item">
+                        <div class="stat-value">50,000+</div>
+                        <div class="stat-label">Active Students</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">200+</div>
+                        <div class="stat-label">Expert Instructors</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">500+</div>
+                        <div class="stat-label">Courses</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">95%</div>
+                        <div class="stat-label">Satisfaction Rate</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="section testimonials-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">What Our Students Say</h2>
+                    <p class="section-subtitle">Hear from learners who transformed their careers</p>
+                </div>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <p class="testimonial-content">
+                            "EDUSPHERE changed my life! The AI assistant helped me understand complex concepts 
+                            easily. Now I'm a certified data scientist working at a top tech company."
+                        </p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar" style="background: linear-gradient(135deg, #6366f1, #10b981);">AK</div>
+                            <div class="testimonial-info">
+                                <h4>Alex Kim</h4>
+                                <span>Data Scientist</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <p class="testimonial-content">
+                            "The gamification system kept me motivated throughout my learning journey. 
+                            I earned badges and climbed the leaderboard while mastering web development!"
+                        </p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar" style="background: linear-gradient(135deg, #f59e0b, #ef4444);">SM</div>
+                            <div class="testimonial-info">
+                                <h4>Sarah Martinez</h4>
+                                <span>Frontend Developer</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <p class="testimonial-content">
+                            "Best investment I've made in my education. The courses are comprehensive, 
+                            the quizzes are challenging, and the certificates are recognized worldwide."
+                        </p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar" style="background: linear-gradient(135deg, #06b6d4, #8b5cf6);">JC</div>
+                            <div class="testimonial-info">
+                                <h4>James Chen</h4>
+                                <span>AI Engineer</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="section cta-section" style="background: var(--bg-primary);">
+            <div class="container">
+                <h2 class="section-title">Ready to Start Learning?</h2>
+                <p class="section-subtitle">Join thousands of learners and transform your career today</p>
+                <div class="cta-buttons">
+                    <a href="login.html" class="btn btn-primary btn-lg">Sign Up Free</a>
+                    <a href="courses.html" class="btn btn-outline btn-lg">Browse Courses</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-brand">
+                        <div class="footer-logo">
+                            <span style="font-size: 2rem;">🎓</span>
+                            EDUSPHERE
+                        </div>
+                        <p class="footer-description">
+                            Empowering learners worldwide with AI-powered education. 
+                            Join our community and unlock your potential.
+                        </p>
+                    </div>
+                    <div>
+                        <h4 class="footer-title">Quick Links</h4>
+                        <ul class="footer-links">
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="courses.html">Courses</a></li>
+                            <li><a href="dashboard.html">Dashboard</a></li>
+                            <li><a href="forum.html">Forum</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="footer-title">Categories</h4>
+                        <ul class="footer-links">
+                            <li><a href="#">Programming</a></li>
+                            <li><a href="#">Data Science</a></li>
+                            <li><a href="#">AI & Machine Learning</a></li>
+                            <li><a href="#">Web Development</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="footer-title">Support</h4>
+                        <ul class="footer-links">
+                            <li><a href="#">Help Center</a></li>
+                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Terms of Service</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p class="footer-copyright">&copy; 2024 EDUSPHERE. All rights reserved.</p>
+                    <div class="footer-social">
+                        <a href="#">🐦</a>
+                        <a href="#">📘</a>
+                        <a href="#">📸</a>
+                        <a href="#">💼</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- AI Chatbot -->
+    <div class="ai-chatbot">
+        <div class="chatbot-window">
+            <div class="chatbot-header">
+                <div class="chatbot-avatar">🤖</div>
+                <div class="chatbot-info">
+                    <h4>AI Assistant</h4>
+                    <span>Online</span>
+                </div>
+            </div>
+            <div class="chatbot-messages">
+                <div class="chatbot-message bot">Hello! I'm your AI learning assistant. How can I help you today?</div>
+            </div>
+            <div class="chatbot-input-area">
+                <input type="text" class="chatbot-input" placeholder="Type your message...">
+                <button class="chatbot-send">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <button class="chatbot-toggle">💬</button>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // Render categories
+        const categoriesGrid = document.getElementById('categories-grid');
+        if (categoriesGrid) {
+            categoriesGrid.innerHTML = COURSE_CATEGORIES.map(cat => `
+                <div class="category-card" onclick="filterByCategory('${cat.id}')">
+                    <div class="category-icon">${cat.icon}</div>
+                    <span class="category-name">${cat.name}</span>
+                </div>
+            `).join('');
+        }
+
+        // Render featured courses
+        const coursesGrid = document.getElementById('featured-courses');
+        if (coursesGrid) {
+            const featuredCourses = COURSES.slice(0, 4);
+            coursesGrid.innerHTML = featuredCourses.map(course => `
+                <div class="course-card" onclick="viewCourse('${course.id}')">
+                    <div class="course-card-image">
+                        <div style="width:100%;height:100%;background:linear-gradient(135deg, ${getCategoryColor(course.category)}, ${getCategoryColor(course.category)}dd);display:flex;align-items:center;justify-content:center;font-size:3rem;">
+                            ${getCategoryIcon(course.category)}
+                        </div>
+                        ${course.badge ? `<span class="course-card-badge">${course.badge}</span>` : ''}
+                    </div>
+                    <div class="course-card-content">
+                        <h3 class="course-card-title">${course.title}</h3>
+                        <p class="course-card-instructor">${course.instructor}</p>
+                        <div class="course-card-meta">
+                            <span class="course-card-rating">
+                                ⭐ ${course.rating}
+                            </span>
+                            <span class="course-card-price">$${course.price}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getCategoryColor(category) {
+            const colors = {
+                programming: '#6366f1',
+                datascience: '#10b981',
+                ai: '#8b5cf6',
+                webdev: '#06b6d4',
+                cybersecurity: '#ef4444',
+                uidesign: '#f59e0b'
+            };
+            return colors[category] || '#6366f1';
+        }
+
+        function getCategoryIcon(category) {
+            const icons = {
+                programming: '💻',
+                datascience: '📊',
+                ai: '🤖',
+                webdev: '🌐',
+                cybersecurity: '🔒',
+                uidesign: '🎨'
+            };
+            return icons[category] || '📚';
+        }
+
+        function filterByCategory(category) {
+            window.location.href = `courses.html?category=${category}`;
+        }
+
+        function viewCourse(courseId) {
+            window.location.href = `course-player.html?course=${courseId}`;
+        }
+    </script>
+</body>
+</html>
+
