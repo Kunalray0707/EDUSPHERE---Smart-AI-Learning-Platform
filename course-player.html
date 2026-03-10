@@ -541,9 +541,59 @@
             renderLessonList();
             loadLesson();
             
+            // Check if course is now complete
+            checkCourseCompletion();
+            
             // Update XP display
             if (APP_STATE.currentUser) {
                 document.querySelector('.user-xp-display').textContent = `${(APP_STATE.currentUser.xp || 0).toLocaleString()} XP`;
+            }
+        }
+        
+        function checkCourseCompletion() {
+            let totalLessons = 0;
+            let completedLessons = 0;
+            
+            currentCourse.modules.forEach(module => {
+                module.lessons.forEach(lesson => {
+                    totalLessons++;
+                    if (isLessonCompleted(lesson.id)) {
+                        completedLessons++;
+                    }
+                });
+            });
+            
+            const percent = totalLessons > 0 ? Math.round((completedLessons / totalLessons) * 100) : 0;
+            
+            if (percent === 100) {
+                // Generate certificate
+                generateCertificate();
+            }
+        }
+        
+        function generateCertificate() {
+            const certificates = JSON.parse(localStorage.getItem('edusphere_certificates') || '[]');
+            const existingCert = certificates.find(c => c.courseId === currentCourse.id);
+            
+            if (!existingCert && APP_STATE.currentUser) {
+                const newCert = {
+                    id: 'CERT-' + Date.now(),
+                    courseId: currentCourse.id,
+                    courseName: currentCourse.title,
+                    userName: APP_STATE.currentUser.name,
+                    completedAt: new Date().toISOString()
+                };
+                
+                certificates.push(newCert);
+                localStorage.setItem('edusphere_certificates', JSON.stringify(certificates));
+                
+                // Award bonus XP for completing course
+                GamificationManager.addXP(100);
+                
+                // Show congratulations
+                setTimeout(() => {
+                    alert(`🎉 Congratulations!\n\nYou have completed "${currentCourse.title}"!\n\nYou earned 100 bonus XP!\n\nYour certificate has been saved to your profile.`);
+                }, 500);
             }
         }
         
