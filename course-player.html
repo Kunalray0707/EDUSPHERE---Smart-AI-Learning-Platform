@@ -448,8 +448,32 @@
         function loadLesson() {
             const content = document.getElementById('lesson-content');
             const actions = document.getElementById('lesson-actions');
+            const videoContainer = document.querySelector('.video-container');
             
             document.getElementById('sidebar-title').textContent = currentLesson.title;
+            
+            // Load YouTube video if available
+            if (currentLesson.videoId) {
+                videoContainer.innerHTML = `
+                    <iframe 
+                        width="100%" 
+                        height="100%" 
+                        src="https://www.youtube.com/embed/${currentLesson.videoId}?autoplay=1" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                `;
+            } else {
+                videoContainer.innerHTML = `
+                    <div class="video-placeholder">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                        </svg>
+                        <p>Video content</p>
+                    </div>
+                `;
+            }
             
             content.innerHTML = `
                 <div class="lesson-header">
