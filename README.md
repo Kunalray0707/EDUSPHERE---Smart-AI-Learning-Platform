@@ -2,16 +2,17 @@
 
 A modern E-Learning platform similar to Udemy and Coursera, built with HTML, CSS, and JavaScript. Features course learning, quizzes, gamification, AI assistant, and community features.
 
-![EDUSPHERE](https://img.shields.io/badge/Version-1.0.0-purple)
+![EDUSPHERE](https://img.shields.io/badge/Version-2.0.0-purple)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
 ## ✨ Features
 
 ### Core Features
 - 📚 **Course Catalog** - Browse 8+ courses across 6 categories
-- Learning** - Interactive 🎬 **Video course player with lesson tracking
+- 🎬 **Video Course Player** - Interactive video player with embedded YouTube videos
 - 📝 **Quiz System** - Timed quizzes with instant scoring
 - 👤 **User Authentication** - Login/Signup with localStorage
+- 📊 **Progress Tracking** - Track lesson completion and course progress
 
 ### Gamification
 - 🏆 **XP Points** - Earn points for completing lessons and quizzes
@@ -26,6 +27,8 @@ A modern E-Learning platform similar to Udemy and Coursera, built with HTML, CSS
 - 📅 **Study Planner** - Plan your learning schedule
 - 🌙 **Dark Mode** - Toggle light/dark theme
 - 🔍 **Search & Filter** - Find courses easily
+- 📥 **Resource Downloads** - Download course materials
+- 🌍 **Multi-language** - English, Hindi, Spanish support
 
 ## 📁 Project Structure
 
@@ -155,4 +158,21 @@ Feel free to enhance this project by:
 ---
 
 Built with ❤️ for education
+
+## 🆕 New Features (Version 2.0)
+
+### Latest Updates:
+- 🎬 **YouTube Video Integration** - All courses now have embedded YouTube videos that play directly in the course player
+- 🎓 **Certificate System** - Generate and download certificates upon course completion with 100 bonus XP
+- 💾 **LocalStorage Persistence** - All progress, XP, and certificates saved locally
+
+### Video Courses Available:
+- Python Programming (FreeCodeCamp tutorials)
+- Machine Learning A-Z
+- Full Stack Web Development
+- Data Science Bootcamp
+- Cybersecurity Fundamentals
+- UI/UX Design Masterclass
+- JavaScript Advanced Concepts
+- Deep Learning with TensorFlow
 
