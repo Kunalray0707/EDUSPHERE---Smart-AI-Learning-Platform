@@ -18,6 +18,7 @@ A modern E-Learning platform similar to Udemy and Coursera, built with HTML, CSS
 - 🔥 **Learning Streak** - Track daily learning consistency
 - 🎖️ **Achievements** - Unlock badges for milestones
 - 📊 **Leaderboard** - Compete with other learners
+- 🎓 **Certificates** - Earn certificates upon course completion
 
 ### Additional Features
 - 🤖 **AI Assistant** - Chatbot for instant help
@@ -99,6 +100,12 @@ open index.html
 - Check achievements and badges
 - Compete on the leaderboard
 
+### 6. Earn Certificates
+- Complete all lessons in a course (100% progress)
+- Receive a certificate upon completion
+- View and download certificates from your profile
+- Earn bonus XP (100) for each course completed
+
 ## 📊 Available Courses
 
 | Category | Courses |
@@ -117,6 +124,7 @@ open index.html
 - ⭐ **Dedicated Learner** - 30-day learning streak
 - 📚 **Knowledge Seeker** - Complete 5 courses
 - 🏆 **Quiz Master** - Complete 10 quizzes with 80%+
+- 🎓 **Graduate** - Earn your first certificate
 
 ## 💻 Technologies Used
 
@@ -147,5 +155,4 @@ Feel free to enhance this project by:
 ---
 
 Built with ❤️ for education
-
 
