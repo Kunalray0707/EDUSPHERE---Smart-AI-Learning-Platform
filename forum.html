@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forum - EDUSPHERE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <style>
+        .forum-page { padding: calc(70px + var(--spacing-xl)) 0 var(--spacing-xl); }
+        .forum-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-xl); flex-wrap: wrap; gap: var(--spacing-md); }
+        .forum-header h1 { font-size: 2rem; margin: 0; }
+        .forum-grid { display: grid; grid-template-columns: 250px 1fr; gap: var(--spacing-xl); }
+        @media (max-width: 992px) { .forum-grid { grid-template-columns: 1fr; } }
+        .forum-sidebar { background: var(--bg-primary); border-radius: var(--radius-lg); padding: var(--spacing-lg); box-shadow: var(--shadow-sm); height: fit-content; }
+        .forum-sidebar h3 { font-size: 1rem; margin-bottom: var(--spacing-md); }
+        .forum-category { display: flex; align-items: center; gap: var(--spacing-sm); padding: var(--spacing-sm) var(--spacing-md); border-radius: var(--radius-md); cursor: pointer; transition: all var(--transition-fast); margin-bottom: var(--spacing-xs); }
+        .forum-category:hover, .forum-category.active { background: rgba(99, 102, 241, 0.1); color: var(--primary-color); }
+        .forum-category span { font-size: 1.25rem; }
+        .forum-main { }
+        .forum-post { background: var(--bg-primary); border-radius: var(--radius-lg); padding: var(--spacing-xl); margin-bottom: var(--spacing-md); box-shadow: var(--shadow-sm); cursor: pointer; transition: all var(--transition-fast); }
+        .forum-post:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+        .forum-post-header { display: flex; align-items: center; gap: var(--spacing-md); margin-bottom: var(--spacing-md); }
+        .forum-avatar { width: 48px; height: 48px; border-radius: var(--radius-full); background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); display: flex; align-items: center; justify-content: center; color: var(--text-light); font-weight: 600; }
+        .forum-author { flex: 1; }
+        .forum-author h4 { font-size: 1rem; margin-bottom: 2px; }
+        .forum-author span { font-size: 0.75rem; color: var(--text-tertiary); }
+        .forum-category-tag { padding: var(--spacing-xs) var(--spacing-sm); background: var(--bg-tertiary); border-radius: var(--radius-sm); font-size: 0.75rem; color: var(--text-secondary); }
+        .forum-post h3 { font-size: 1.125rem; margin-bottom: var(--spacing-sm); }
+        .forum-post p { color: var(--text-secondary); margin-bottom: var(--spacing-md); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .forum-post-footer { display: flex; gap: var(--spacing-lg); font-size: 0.875rem; color: var(--text-tertiary); }
+        .forum-post-footer span { display: flex; align-items: center; gap: var(--spacing-xs); }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-brand"><span style="font-size:2rem;">🎓</span>EDUSPHERE</a>
+            <div class="navbar-menu">
+                <ul class="navbar-links">
+                    <li><a href="index.html" class="navbar-link">Home</a></li>
+                    <li><a href="courses.html" class="navbar-link">Courses</a></li>
+                    <li><a href="dashboard.html" class="navbar-link">Dashboard</a></li>
+                    <li><a href="forum.html" class="navbar-link active">Forum</a></li>
+                </ul>
+                <div class="navbar-actions">
+                    <span class="user-xp" style="font-weight:600;color:var(--primary-color);">0 XP</span>
+                    <a href="login.html" class="btn btn-primary">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container forum-page">
+        <div class="forum-header">
+            <h1>💬 Community Forum</h1>
+            <button class="btn btn-primary" onclick="openNewPost()">+ New Post</button>
+        </div>
+
+        <div class="forum-grid">
+            <aside class="forum-sidebar">
+                <h3>Categories</h3>
+                <div class="forum-category active" onclick="filterCategory('')"><span>📚</span> All</div>
+                <div class="forum-category" onclick="filterCategory('Programming')"><span>💻</span> Programming</div>
+                <div class="forum-category" onclick="filterCategory('Data Science')"><span>📊</span> Data Science</div>
+                <div class="forum-category" onclick="filterCategory('Web Dev')"><span>🌐</span> Web Dev</div>
+                <div class="forum-category" onclick="filterCategory('AI')"><span>🤖</span> AI & ML</div>
+                <div class="forum-category" onclick="filterCategory('Career')"><span>💼</span> Career</div>
+            </aside>
+
+            <div class="forum-main" id="forum-posts">
+                <!-- Rendered by JS -->
+            </div>
+        </div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        const forumPosts = [
+            { id: 1, author: 'Alex Kim', avatar: 'AK', title: 'How to handle large datasets in Python?', content: "I'm working with a dataset that has over 10 million rows. What's the best approach to process it efficiently? Any tips would be helpful!", category: 'Data Science', likes: 24, replies: 8, time: '2 hours ago' },
+            { id: 2, author: 'Sarah Martinez', avatar: 'SM', title: 'Best practices for React state management', content: 'What are the current best practices for managing state in React applications? Should I use Redux, Context, or something else?', category: 'Web Dev', likes: 18, replies: 12, time: '5 hours ago' },
+            { id: 3, author: 'James Chen', avatar: 'JC', title: 'Career transition from marketing to AI/ML', content: 'Has anyone successfully transitioned from a non-technical background to AI/ML? What resources would you recommend?', category: 'Career', likes: 42, replies: 15, time: '1 day ago' },
+            { id: 4, author: 'Emily Parker', avatar: 'EP', title: 'Understanding neural networks - beginner guide', content: "I'm new to AI/ML and finding it hard to understand neural networks. Can someone explain in simple terms?", category: 'AI', likes: 31, replies: 9, time: '1 day ago' },
+            { id: 5, author: 'Mike Roberts', avatar: 'MR', title: 'Python vs JavaScript for backend development', content: 'Which one should I learn for backend development? Python with Django or JavaScript with Node.js?', category: 'Programming', likes: 28, replies: 14, time: '2 days ago' }
+        ];
+
+        function renderPosts(posts) {
+            const container = document.getElementById('forum-posts');
+            container.innerHTML = posts.map(post => `
+                <div class="forum-post" onclick="viewPost(${post.id})">
+                    <div class="forum-post-header">
+                        <div class="forum-avatar">${post.avatar}</div>
+                        <div class="forum-author">
+                            <h4>${post.author}</h4>
+                            <span>${post.time}</span>
+                        </div>
+                        <span class="forum-category-tag">${post.category}</span>
+                    </div>
+                    <h3>${post.title}</h3>
+                    <p>${post.content}</p>
+                    <div class="forum-post-footer">
+                        <span>👍 ${post.likes} likes</span>
+                        <span>💬 ${post.replies} replies</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterCategory(category) {
+            document.querySelectorAll('.forum-category').forEach(c => c.classList.remove('active'));
+            event.target.closest('.forum-category').classList.add('active');
+            const filtered = category ? forumPosts.filter(p => p.category === category) : forumPosts;
+            renderPosts(filtered);
+        }
+
+        function viewPost(id) { console.log('View post:', id); }
+        function openNewPost() { alert('New post dialog would open here!'); }
+
+        AuthManager.checkAuth();
+        if (APP_STATE.currentUser) {
+            document.querySelector('.user-xp').textContent = `${(APP_STATE.currentUser.xp||0).toLocaleString()} XP`;
+        }
+
+        renderPosts(forumPosts);
+    </script>
+</body>
+</html>
+
