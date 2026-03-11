@@ -1,6 +1,7 @@
 # 🎓 EDUSPHERE - Smart AI Learning Platform
 
 A modern E-Learning platform similar to Udemy and Coursera, built with HTML, CSS, and JavaScript. Features course learning, quizzes, gamification, AI assistant, and community features.
+link: https://edusphere-smart-ai-learning-platfor.vercel.app/
 
 ![EDUSPHERE](https://img.shields.io/badge/Version-2.0.0-purple)
 ![License](https://img.shields.io/badge/License-MIT-green)
